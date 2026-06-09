@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placeholder Image Generator — Free Online Tool</title>
+<meta name="description" content="Generate free placeholder images in PNG, JPEG, WebP, and SVG formats. Custom dimensions, colors, text, batch generation, and instant download.">
+<meta name="keywords" content="placeholder image generator, dummy image, test image, placeholder, free online tool, image generator">
+<link rel="canonical" href="https://placeholder-gen.pages.dev/">
+<meta property="og:title" content="Placeholder Image Generator — Free Online Tool">
+<meta property="og:description" content="Generate free placeholder images in PNG, JPEG, WebP, and SVG formats with custom dimensions, colors, and text.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://placeholder-gen.pages.dev/">
+<meta property="og:image" content="https://placeholder-gen.pages.dev/og-image.png">
+<meta property="og:site_name" content="Placeholder Image Generator">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Placeholder Image Generator — Free Online Tool">
+<meta name="twitter:description" content="Generate free placeholder images instantly in PNG, JPEG, WebP, and SVG formats.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Placeholder Image Generator",
+  "url": "https://placeholder-gen.pages.dev/",
+  "description": "Generate free placeholder images in PNG, JPEG, WebP, and SVG formats with custom dimensions, colors, and text.",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "browserRequirements": "Requires a modern web browser with JavaScript and Canvas support"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a placeholder image?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A placeholder image is a temporary dummy image used during web development and design to reserve space where a final image will be placed later. It helps visualize layouts and test responsive designs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What image formats are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The generator supports PNG, JPEG, WebP, and SVG formats. PNG offers lossless quality with transparency. JPEG provides smaller file sizes. WebP gives modern compression. SVG provides infinitely scalable vector output."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this tool free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the Placeholder Image Generator is completely free. All image generation happens locally in your browser using the Canvas API. No data is sent to any server, and there are no usage limits."
+      }
+    }
+  ]
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.6;min-height:100vh}
+a{color:#58a6ff;text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+h1{font-size:2rem;text-align:center;margin:24px 0 8px;color:#f0f6fc}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:32px;font-size:1.05rem}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin-bottom:20px}
+.card h2{font-size:1.25rem;color:#f0f6fc;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.875rem;color:#8b949e;margin-bottom:4px;font-weight:500}
+input[type=number],input[type=text],input[type=color],select{width:100%;background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 12px;color:#c9d1d9;font-size:.9rem;transition:border-color .2s}
+input:focus,select:focus{outline:none;border-color:#58a6ff}
+input[type=color]{height:40px;padding:4px;cursor:pointer}
+.row{display:flex;gap:12px;margin-bottom:12px}
+.row>div{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border:none;border-radius:6px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none}
+.btn-primary{background:#238636;color:#fff}
+.btn-primary:hover{background:#2ea043}
+.btn-secondary{background:#30363d;color:#c9d1d9}
+.btn-secondary:hover{background:#484f58}
+.btn-danger{background:#da3633;color:#fff}
+.btn-danger:hover{background:#f85149}
+.btn-accent{background:#1f6feb;color:#fff}
+.btn-accent:hover{background:#388bfd}
+.btn-sm{padding:6px 12px;font-size:.8rem}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.quick-sizes{display:flex;flex-wrap:wrap;gap:6px}
+.quick-sizes button{padding:5px 10px;background:#21262d;border:1px solid #30363d;border-radius:4px;color:#c9d1d9;font-size:.78rem;cursor:pointer;transition:all .2s}
+.quick-sizes button:hover{border-color:#58a6ff;color:#58a6ff}
+.preview-area{display:flex;align-items:center;justify-content:center;min-height:200px;background:#0d1117;border:1px dashed #30363d;border-radius:8px;padding:16px;overflow:auto}
+.preview-area img{max-width:100%;max-height:400px;border-radius:4px;image-rendering:pixelated}
+.preview-area svg{max-width:100%;max-height:400px}
+.batch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.batch-grid .batch-item{background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px;text-align:center}
+.batch-grid .batch-item img{max-width:100%;max-height:100px;margin-bottom:4px;border-radius:4px}
+.batch-grid .batch-item span{font-size:.75rem;color:#8b949e}
+.embed-box{background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:12px;font-family:monospace;font-size:.75rem;color:#8b949e;word-break:break-all;max-height:120px;overflow-y:auto;white-space:pre-wrap}
+.toast{position:fixed;bottom:24px;right:24px;background:#238636;color:#fff;padding:10px 20px;border-radius:8px;font-size:.9rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.feature-item{text-align:center;padding:20px 12px}
+.feature-item .icon{font-size:2rem;margin-bottom:8px}
+.feature-item h3{color:#f0f6fc;font-size:1rem;margin-bottom:6px}
+.feature-item p{color:#8b949e;font-size:.85rem}
+.faq-item{margin-bottom:16px}
+.faq-item h3{color:#f0f6fc;font-size:.95rem;margin-bottom:4px}
+.faq-item p{color:#8b949e;font-size:.875rem}
+.email-widget{display:flex;gap:8px;max-width:440px}
+.email-widget input{flex:1}
+.cross-links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:12px}
+footer{text-align:center;color:#484f58;font-size:.8rem;padding:32px 0 16px;border-top:1px solid #21262d;margin-top:32px}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Placeholder Image Generator</h1>
+  <p class="subtitle">Free online tool — generate custom placeholder and test images in seconds</p>
+
+  <div class="grid">
+    <!-- Controls -->
+    <div>
+      <div class="card">
+        <h2>&#9881; Configuration</h2>
+        <div class="row">
+          <div><label for="w">Width (px)</label><input type="number" id="w" value="400" min="50" max="1920"></div>
+          <div><label for="h">Height (px)</label><input type="number" id="h" value="300" min="50" max="1080"></div>
+        </div>
+        <div class="row">
+          <div><label for="bg">Background Color</label><input type="color" id="bg" value="#cccccc"></div>
+          <div><label for="tc">Text Color</label><input type="color" id="tc" value="#333333"></div>
+        </div>
+        <div class="row">
+          <div><label for="txt">Custom Text (empty = WxH)</label><input type="text" id="txt" placeholder="Leave empty for WxH"></div>
+        </div>
+        <div class="row">
+          <div><label for="fs">Font Size (px)</label><input type="number" id="fs" value="0" min="0" max="200" title="0 = auto"></div>
+          <div><label for="fmt">Format</label>
+            <select id="fmt">
+              <option value="png">PNG</option>
+              <option value="jpeg">JPEG</option>
+              <option value="webp">WebP</option>
+              <option value="svg">SVG</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>&#9201; Quick Sizes</h2>
+        <div class="quick-sizes">
+          <button onclick="setDim(150,150)">150 &times; 150</button>
+          <button onclick="setDim(300,200)">300 &times; 200</button>
+          <button onclick="setDim(640,480)">640 &times; 480</button>
+          <button onclick="setDim(800,600)">800 &times; 600</button>
+          <button onclick="setDim(1024,768)">1024 &times; 768</button>
+          <button onclick="setDim(1920,1080)">1920 &times; 1080</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>&#128230; Actions</h2>
+        <div class="btns">
+          <button class="btn btn-primary" onclick="generate()">&#9654; Generate</button>
+          <button class="btn btn-accent" onclick="download()">&#11015; Download</button>
+          <button class="btn btn-secondary" onclick="copyDataURI()">&#128203; Copy Data URI</button>
+          <button class="btn btn-secondary" onclick="showEmbed()">&#128196; Embed Code</button>
+          <button class="btn btn-danger" onclick="batchGenerate()">&#9889; Batch (5 Random)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview -->
+    <div>
+      <div class="card">
+        <h2>&#128065; Preview</h2>
+        <div class="preview-area" id="preview">
+          <span style="color:#484f58">Click "Generate" to create a placeholder image</span>
+        </div>
+      </div>
+      <div class="card" id="embedCard" style="display:none">
+        <h2>&#128196; Embed Code</h2>
+        <div class="embed-box" id="embedCode"></div>
+        <div class="btns"><button class="btn btn-sm btn-secondary" onclick="copyEmbed()">Copy Embed</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Batch -->
+  <div class="card" id="batchCard" style="display:none">
+    <h2>&#9889; Batch Generated Images</h2>
+    <div class="batch-grid" id="batchGrid"></div>
+  </div>
+
+  <!-- Features -->
+  <div class="card" style="margin-top:20px">
+    <h2 style="text-align:center;justify-content:center">&#10024; Features</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="icon">&#127912;</div>
+        <h3>Multiple Formats</h3>
+        <p>Export as PNG, JPEG, WebP, or SVG. Choose the right format for every project.</p>
+      </div>
+      <div class="feature-item">
+        <div class="icon">&#9889;</div>
+        <h3>Batch Generation</h3>
+        <p>Generate 5 random placeholder images instantly for rapid prototyping and testing.</p>
+      </div>
+      <div class="feature-item">
+        <div class="icon">&#128274;</div>
+        <h3>100% Client-Side</h3>
+        <p>All processing happens in your browser. No uploads, no servers, no data collected.</p>
+      </div>
+      <div class="feature-item">
+        <div class="icon">&#128640;</div>
+        <h3>Embed &amp; Share</h3>
+        <p>Copy data URIs and embed codes directly into your HTML. Zero dependencies.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card" style="margin-top:20px">
+    <h2 style="text-align:center;justify-content:center">&#10067; Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>What is a placeholder image?</h3>
+      <p>A placeholder image is a temporary dummy image used during web development and design to reserve space where a final image will be placed later. It helps visualize layouts, test responsive designs, and prototype user interfaces before real assets are available.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What image formats are supported?</h3>
+      <p>The generator supports PNG (lossless with transparency), JPEG (smaller file sizes for photos), WebP (modern compression with excellent quality-to-size ratio), and SVG (infinitely scalable vector output ideal for responsive designs).</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is this tool free to use?</h3>
+      <p>Yes, completely free with no limits. All image generation happens locally in your browser using the Canvas API. No data is sent to any server, no sign-up is required, and there are no watermarks or restrictions on generated images.</p>
+    </div>
+  </div>
+
+  <!-- Email Widget -->
+  <div class="card" style="margin-top:20px">
+    <h2>&#128231; Get Updates</h2>
+    <p style="color:#8b949e;font-size:.875rem;margin-bottom:12px">Subscribe to hear about new features and tools.</p>
+    <div class="email-widget">
+      <input type="email" id="emailInput" placeholder="you@example.com">
+      <button class="btn btn-primary" onclick="subscribe()">Subscribe</button>
+    </div>
+  </div>
+
+  <!-- Cross Links -->
+  <div class="card" style="margin-top:20px">
+    <h2 style="text-align:center;justify-content:center">&#128279; Related Tools</h2>
+    <div class="cross-links">
+      <a href="https://placeholder-gen.pages.dev/" class="btn btn-sm btn-secondary">Placeholder Generator</a>
+      <a href="https://developers.google.com/speed/pagespeed/" class="btn btn-sm btn-secondary">PageSpeed Insights</a>
+      <a href="https://www.transparenttextures.com/" class="btn btn-sm btn-secondary">Transparent Textures</a>
+      <a href="https://cssgradient.io/" class="btn btn-sm btn-secondary">CSS Gradient</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Placeholder Image Generator. Free online tool. No data collected.</p>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let currentDataURI = '';
+let currentBlob = null;
+
+function $(id) { return document.getElementById(id); }
+function vals() {
+  const w = Math.min(1920, Math.max(50, parseInt($('w').value) || 400));
+  const h = Math.min(1080, Math.max(50, parseInt($('h').value) || 300));
+  const bg = $('bg').value;
+  const tc = $('tc').value;
+  const txt = $('txt').value || (w + '\u00D7' + h);
+  let fs = parseInt($('fs').value) || 0;
+  if (fs === 0) fs = Math.max(12, Math.round(Math.min(w, h) / 8));
+  const fmt = $('fmt').value;
+  return { w, h, bg, tc, txt, fs, fmt };
+}
+
+function genCanvas(w, h, bg, tc, txt, fs) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = tc;
+  ctx.font = 'bold ' + fs + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(txt, w / 2, h / 2);
+  return c;
+}
+
+function genSVG(w, h, bg, tc, txt, fs) {
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><rect width="${w}" height="${h}" fill="${bg}"/><text x="${w/2}" y="${h/2}" dominant-baseline="central" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-weight="bold" font-size="${fs}" fill="${tc}">${esc(txt)}</text></svg>`;
+}
+
+function toMime(fmt) {
+  return { png: 'image/png', jpeg: 'image/jpeg', webp: 'image/webp', svg: 'image/svg+xml' }[fmt];
+}
+
+function setDim(w, h) {
+  $('w').value = w; $('h').value = h; generate();
+}
+
+function generate() {
+  const v = vals();
+  const preview = $('preview');
+
+  if (v.fmt === 'svg') {
+    const svg = genSVG(v.w, v.h, v.bg, v.tc, v.txt, v.fs);
+    currentDataURI = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+    currentBlob = new Blob([svg], { type: 'image/svg+xml' });
+    preview.innerHTML = '<div>' + svg + '</div>';
+    const el = preview.querySelector('svg');
+    if (el) { el.style.maxWidth = '100%'; el.style.maxHeight = '400px'; }
+  } else {
+    const c = genCanvas(v.w, v.h, v.bg, v.tc, v.txt, v.fs);
+    currentDataURI = c.toDataURL(toMime(v.fmt), v.fmt === 'jpeg' ? 0.92 : undefined);
+    c.toBlob(function(b) { currentBlob = b; }, toMime(v.fmt), v.fmt === 'jpeg' ? 0.92 : undefined);
+    preview.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = currentDataURI;
+    img.alt = v.txt;
+    preview.appendChild(img);
+  }
+  $('embedCard').style.display = 'none';
+  toast('Image generated!');
+}
+
+function download() {
+  const v = vals();
+  if (!currentBlob && !currentDataURI) { generate(); }
+  // For canvas formats blob may not be ready yet, use data URI fallback
+  const ext = v.fmt === 'jpeg' ? 'jpg' : v.fmt;
+  const a = document.createElement('a');
+  if (currentBlob) {
+    a.href = URL.createObjectURL(currentBlob);
+  } else {
+    a.href = currentDataURI;
+  }
+  a.download = 'placeholder-' + v.w + 'x' + v.h + '.' + ext;
+  a.click();
+  if (currentBlob) URL.revokeObjectURL(a.href);
+  toast('Download started!');
+}
+
+function copyDataURI() {
+  if (!currentDataURI) { generate(); }
+  navigator.clipboard.writeText(currentDataURI).then(() => toast('Data URI copied!'));
+}
+
+function showEmbed() {
+  if (!currentDataURI) { generate(); }
+  const v = vals();
+  const code = '<img src="' + currentDataURI + '" alt="' + v.txt.replace(/"/g, '&quot;') + '" width="' + v.w + '" height="' + v.h + '">';
+  $('embedCode').textContent = code;
+  $('embedCard').style.display = '';
+  toast('Embed code generated!');
+}
+
+function copyEmbed() {
+  navigator.clipboard.writeText($('embedCode').textContent).then(() => toast('Embed code copied!'));
+}
+
+function batchGenerate() {
+  const grid = $('batchGrid');
+  grid.innerHTML = '';
+  $('batchCard').style.display = '';
+  for (let i = 0; i < 5; i++) {
+    const w = Math.round(100 + Math.random() * 820) * 2;
+    const h = Math.round(100 + Math.random() * 440) * 2;
+    const cw = Math.min(1920, Math.max(50, w));
+    const ch = Math.min(1080, Math.max(50, h));
+    const bg = '#' + Math.floor(Math.random()*0xCCCCCC + 0x222222).toString(16).padStart(6, '0');
+    const tc = '#' + Math.floor(Math.random()*0xCCCCCC).toString(16).padStart(6, '0');
+    const text = cw + '\u00D7' + ch;
+    const fs = Math.max(12, Math.round(Math.min(cw, ch) / 8));
+    const c = genCanvas(cw, ch, bg, tc, text, fs);
+    const dataURI = c.toDataURL('image/png');
+    const item = document.createElement('div');
+    item.className = 'batch-item';
+    const img = document.createElement('img');
+    img.src = dataURI; img.alt = text;
+    item.appendChild(img);
+    const span = document.createElement('span');
+    span.textContent = cw + ' \u00D7 ' + ch;
+    item.appendChild(span);
+    grid.appendChild(item);
+  }
+  toast('Batch generated!');
+}
+
+function subscribe() {
+  const email = $('emailInput').value;
+  if (!email || !email.includes('@')) { toast('Please enter a valid email.'); return; }
+  toast('Thanks for subscribing!');
+  $('emailInput').value = '';
+}
+
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// Auto-generate on load
+window.addEventListener('DOMContentLoaded', generate);
+</script>
+</body>
+</html>
